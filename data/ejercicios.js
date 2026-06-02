@@ -1,9 +1,9 @@
 export const ejercicios = [
   {
     id: 1,
-    titulo: "Coste total de un viaje",
+    titulo: "Costo total de un viaje",
     descripcion:
-      "Calcula el coste total de un viaje sumando alojamiento, alimentación y entretenimiento.",
+      "Calcula el costo total de un viaje sumando alojamiento, alimentación y entretenimiento.",
 
     javascript: `
     const alojamiento = 200;
@@ -11,7 +11,7 @@ export const ejercicios = [
     const entretenimiento = 100;
 
     const total = alojamiento + alimentacion + entretenimiento;
-    console.log("El coste total del viaje es " + total + "€");
+    console.log("El costo total del viaje es " + total + "€");
     `,
 
     python: `
