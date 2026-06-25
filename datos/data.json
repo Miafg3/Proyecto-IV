@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "titulo": "¿Qué es HTTP & HTTPS?",
+    "fecha": "Enero 2026",
+    "autor": "",
+    "imagen": "img/javascript.jpg",
+    "resumen": "Resumen aqui ...",
+    "contenido": "URL de la pagina aqui"
+  },
+
+  {
+    "id": 2,
+    "titulo": "¿Qué es una API?",
+    "fecha": "Mayo 2026",
+    "autor": "",
+    "imagen": "img/api.jpg",
+    "resumen": "Las APIs permiten la comunicación entre aplicaciones.",
+    "contenido": "URL de la pagina aqui"
+  }
+]

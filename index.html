@@ -3,28 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto IV</title>
-    <link rel="stylesheet" href="style.css">
+    <title>IV</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
-    <main class="contenedor">
-        <section id="lista-ejercicios" class="lista-ejercicios"></section>
-        <section class="resultado">
-            <h2 id="titulo-ejercicio">Selecciona un ejercicio</h2>
-            <p id="descripcion-ejercicio"></p>
-            <div class="codigo-container">
-                <div class="bloque-codigo">
-                    <h3>JavaScript</h3>
-                    <pre id="codigo-js"></pre>
-                </div>
-                <div class="bloque-codigo">
-                    <h3>Python</h3>
-                    <pre id="codigo-python"></pre>
-                </div>
-            </div>
+    <header class="hero">
+        <nav class="navbar">
+            <h1 class="logo">IV</h1>
+
+            <ul class="menu">
+                <li><a href="#">Artículos</a></li>
+            </ul>
+        </nav>
+
+        <div class="hero-content">
+            <h2>
+                Publicaciones de tecnología y desarrollo web
+            </h2>
+
+            <p>
+                Comparte conocimientos, proyectos y experiencias
+                relacionadas con programación y tecnología.
+            </p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Buscar artículo...">
+        </div>
+
+        <section id="posts-container" class="posts-grid">
+
         </section>
     </main>
 
-    <script type="module" src="script.js"></script>
+    <script src="datos/data.json"></script>
+    <script src="script.js"></script>
 </body>
 </html>
