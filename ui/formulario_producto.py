@@ -5,103 +5,150 @@ class FormularioProducto(ctk.CTkFrame):
     """Formulario para agregar productos."""
 
     def __init__(self, master):
-        super().__init__(master, fg_color=COLOR_FONDO)
-
+        super().__init__(master,fg_color=COLOR_FONDO)
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1)
         self.crear_componentes()
 
     def crear_componentes(self):
 
+        # Tarjeta centrada
+
+        self.tarjeta = ctk.CTkFrame(
+            self,
+            fg_color=COLOR_PANEL,
+            corner_radius=15
+        )
+
+        self.tarjeta.grid(
+            row=0,
+            column=0,
+            padx=50,
+            pady=50
+        )
+
         # Título
 
         titulo = ctk.CTkLabel(
-            self,
+            self.tarjeta,
             text="Agregar producto",
-            font=(FUENTE, 24, "bold"),
+            font=(FUENTE, 26, "bold"),
             text_color=COLOR_TEXTO
         )
 
-        titulo.pack(anchor="w", pady=(0, 25))
+        titulo.pack(
+            pady=(35, 30)
+        )
 
         # Nombre
 
         ctk.CTkLabel(
-            self,
-            text="Nombre"
-        ).pack(anchor="w")
+            self.tarjeta,
+            text="Nombre",
+            anchor="w"
+        ).pack(fill="x", padx=35)
 
         self.entry_nombre = ctk.CTkEntry(
-            self,
-            width=350
+            self.tarjeta,
+            width=450,
+            height=40
         )
 
-        self.entry_nombre.pack(pady=(5, 15))
+        self.entry_nombre.pack(
+            padx=35,
+            pady=(6, 20)
+        )
 
         # Marca
 
         ctk.CTkLabel(
-            self,
-            text="Marca"
-        ).pack(anchor="w")
+            self.tarjeta,
+            text="Marca",
+            anchor="w"
+        ).pack(fill="x", padx=35)
 
         self.entry_marca = ctk.CTkEntry(
-            self,
-            width=350
+            self.tarjeta,
+            width=450,
+            height=40
         )
 
-        self.entry_marca.pack(pady=(5, 15))
+        self.entry_marca.pack(
+            padx=35,
+            pady=(6, 20)
+        )
 
         # SKU
 
         ctk.CTkLabel(
-            self,
-            text="SKU"
-        ).pack(anchor="w")
+            self.tarjeta,
+            text="SKU",
+            anchor="w"
+        ).pack(fill="x", padx=35)
 
         self.entry_sku = ctk.CTkEntry(
-            self,
-            width=350
+            self.tarjeta,
+            width=450,
+            height=40
         )
 
-        self.entry_sku.pack(pady=(5, 15))
+        self.entry_sku.pack(
+            padx=35,
+            pady=(6, 20)
+        )
 
         # Precio
 
         ctk.CTkLabel(
-            self,
-            text="Precio"
-        ).pack(anchor="w")
+            self.tarjeta,
+            text="Precio",
+            anchor="w"
+        ).pack(fill="x", padx=35)
 
         self.entry_precio = ctk.CTkEntry(
-            self,
-            width=350
+            self.tarjeta,
+            width=450,
+            height=40
         )
 
-        self.entry_precio.pack(pady=(5, 15))
+        self.entry_precio.pack(
+            padx=35,
+            pady=(6, 20)
+        )
 
         # Cantidad
 
         ctk.CTkLabel(
-            self,
-            text="Cantidad"
-        ).pack(anchor="w")
+            self.tarjeta,
+            text="Cantidad",
+            anchor="w"
+        ).pack(fill="x", padx=35)
 
         self.entry_cantidad = ctk.CTkEntry(
-            self,
-            width=350
+            self.tarjeta,
+            width=450,
+            height=40
         )
 
-        self.entry_cantidad.pack(pady=(5, 25))
+        self.entry_cantidad.pack(
+            padx=35,
+            pady=(6, 30)
+        )
 
         # Botón
 
         self.boton_guardar = ctk.CTkButton(
-            self,
+            self.tarjeta,
             text="Guardar producto",
-            width=180,
-            height=40,
+            height=45,
+            width=450,
             fg_color=COLOR_BOTON,
             hover_color=COLOR_BOTON_HOVER,
-            text_color="black"
+            text_color="black",
+            corner_radius=8
         )
 
-        self.boton_guardar.pack(anchor="w")
+        self.boton_guardar.pack(
+            padx=35,
+            pady=(0, 35)
+        )

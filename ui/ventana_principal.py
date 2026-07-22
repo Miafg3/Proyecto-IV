@@ -3,164 +3,184 @@ from tema import *
 from ui.formulario_producto import FormularioProducto
 
 class VentanaPrincipal:
-    """Ventana principal del sistema."""
 
     def __init__(self):
         self.ventana = ctk.CTk()
-
+        self.botones = {}
         self.configurar_ventana()
         self.crear_componentes()
 
+    # CONFIGURACIÓN
+
     def configurar_ventana(self):
-        """Configura la ventana principal."""
-        self.ventana.title("Proyecto - IV")
-        self.ventana.geometry("1000x650")
-        self.ventana.configure(fg_color=COLOR_FONDO)
+        self.ventana.title("Proyecto IV")
+        self.ventana.state("zoomed")
+        self.ventana.minsize(1100, 700)
+        self.ventana.configure(
+            fg_color=COLOR_FONDO
+        )
+
+    # COMPONENTES
 
     def crear_componentes(self):
-        """Crea todos los componentes de la ventana."""
+
+        self.ventana.grid_columnconfigure(
+            1,
+            weight=1
+        )
+
+        self.ventana.grid_rowconfigure(
+            0,
+            weight=1
+        )
+
         self.crear_sidebar()
         self.crear_area_principal()
+        self.mostrar_formulario()
+
+    # SIDEBAR
 
     def crear_sidebar(self):
-        """Crea el menú lateral."""
+
         self.sidebar = ctk.CTkFrame(
             self.ventana,
-            width=240,
+            width=270,
             fg_color=COLOR_PANEL,
             corner_radius=0
         )
 
-        self.sidebar.pack(
-            side="left",
-            fill="y"
+        self.sidebar.grid(
+            row=0,
+            column=0,
+            sticky="ns"
         )
 
-        # Título
+        self.sidebar.grid_propagate(False)
 
-        self.titulo = ctk.CTkLabel(
+        # TITULO
+
+        titulo = ctk.CTkLabel(
             self.sidebar,
-            text="Proyecto - IV",
+            text="Sistema de\nInventario",
             font=(FUENTE, 24, "bold"),
-            text_color=COLOR_TEXTO
+            text_color=COLOR_TEXTO,
+            justify="center"
         )
 
-        self.titulo.pack(
-            pady=(30, 5)
+        titulo.pack(
+            pady=(40, 20)
         )
 
-        # Subtítulo
+        # LINEA
 
-        self.subtitulo = ctk.CTkLabel(
+        separador = ctk.CTkFrame(
             self.sidebar,
-            text="Sistema de Inventario",
-            font=(FUENTE, 13),
+            height=2,
+            fg_color="#5F6B7A"
+        )
+
+        separador.pack(
+            fill="x",
+            padx=20,
+            pady=(0, 25)
+        )
+
+        # MENU
+
+        menu = ctk.CTkLabel(
+            self.sidebar,
+            text="MENÚ",
+            font=(FUENTE, 13, "bold"),
             text_color="#BFC9D9"
         )
 
-        self.subtitulo.pack(
-            pady=(0, 35)
+        menu.pack(
+            anchor="w",
+            padx=25,
+            pady=(0, 15)
         )
 
-        # Botones
+        self.crear_boton(
+            "Agregar producto",
+            "➕",
+            self.mostrar_formulario
+        )
 
-        opciones = [
-            ("➕ Agregar producto", self.mostrar_formulario_producto),
-            ("📦 Inventario", None),
-            ("🔍 Buscar", None),
-            ("✏️ Editar producto", None),
-            ("🗑️ Eliminar producto", None)
-        ]
+        self.crear_boton(
+            "Inventario",
+            "📦",
+            None
+        )
 
-        for texto, comando in opciones:
+        self.crear_boton(
+            "Buscar",
+            "🔍",
+            None
+        )
 
-            boton = ctk.CTkButton(
-                self.sidebar,
-                text=texto,
-                height=42,
-                corner_radius=8,
-                fg_color=COLOR_BOTON,
-                hover_color=COLOR_BOTON_HOVER,
-                text_color="black",
-                command=comando
+        self.crear_boton(
+            "Editar",
+            "✏️",
+            None
+        )
+
+        self.crear_boton(
+            "Eliminar",
+            "🗑️",
+            None
+        )
+
+    # BOTONES
+
+    def crear_boton(self, nombre, icono, comando):
+
+        boton = ctk.CTkButton(
+            self.sidebar,
+            text=f"{icono}  {nombre}",
+            height=46,
+            corner_radius=10,
+            fg_color=COLOR_PANEL,
+            hover_color="#243E73",
+            anchor="w",
+            font=(FUENTE, 15),
+            
+            command=lambda: self.accion_boton(
+                nombre,
+                comando
             )
+        )
 
-            boton.pack(
-                fill="x",
-                padx=20,
-                pady=8
-            )
+        boton.pack(
+            fill="x",
+            padx=20,
+            pady=6
+        )
+
+        self.botones[nombre] = boton
+
+    # AREA PRINCIPAL
 
     def crear_area_principal(self):
-        """Crea el área principal."""
-        self.area_principal = ctk.CTkFrame(
+
+        self.contenido = ctk.CTkFrame(
             self.ventana,
             fg_color=COLOR_FONDO,
             corner_radius=0
         )
 
-        self.area_principal.pack(
-            side="left",
-            fill="both",
-            expand=True
+        self.contenido.grid(
+            row=0,
+            column=1,
+            sticky="nsew"
         )
 
-        # Header
-
-        self.header = ctk.CTkFrame(
-            self.area_principal,
-            height=80,
-            fg_color=COLOR_PANEL,
-            corner_radius=0
-        )
-
-        self.header.pack(
-            fill="x"
-        )
-
-        self.titulo_header = ctk.CTkLabel(
-            self.header,
-            text="Bienvenido",
-            font=(FUENTE, 26, "bold"),
-            text_color=COLOR_TEXTO
-        )
-
-        self.titulo_header.pack(
-            padx=25,
-            pady=20,
-            anchor="w"
-        )
-
-        # Contenido
-
-        self.contenido = ctk.CTkFrame(
-            self.area_principal,
-            fg_color=COLOR_FONDO
-        )
-
-        self.contenido.pack(
-            fill="both",
-            expand=True,
-            padx=25,
-            pady=25
-        )
-
-        self.descripcion = ctk.CTkLabel(
-            self.contenido,
-            text="Selecciona una opción del menú para comenzar.",
-            font=(FUENTE, 16),
-            text_color="#BFC9D9"
-        )
-
-        self.descripcion.pack()
+    # CAMBIO DE VISTAS
 
     def limpiar_contenido(self):
-        """Elimina todo el contenido del área principal."""
         for widget in self.contenido.winfo_children():
             widget.destroy()
 
-    def mostrar_formulario_producto(self):
-        """Muestra el formulario para agregar productos."""
+    def mostrar_formulario(self):
         self.limpiar_contenido()
 
         formulario = FormularioProducto(
@@ -168,10 +188,35 @@ class VentanaPrincipal:
         )
 
         formulario.pack(
-            fill="both",
             expand=True
         )
 
+    # BOTON ACTIVO
+
+    def accion_boton(self, nombre, comando):
+        self.seleccionar_boton(nombre)
+        if comando:
+            comando()  
+           
+    def seleccionar_boton(self, nombre):
+        for boton in self.botones.values():
+            boton.configure(
+                fg_color=COLOR_PANEL,
+                hover_color="#243E73",
+                text_color="white"
+            )
+
+        self.botones[nombre].configure(
+            fg_color=COLOR_BOTON,
+            hover_color=COLOR_BOTON_HOVER,
+            text_color="white"
+        )
+        
+        # INICIAR
+
     def iniciar(self):
-        """Inicia la aplicación."""
+        self.seleccionar_boton(
+            "Agregar producto"
+        )
+
         self.ventana.mainloop()
