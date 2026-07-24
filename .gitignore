@@ -1,5 +1,4 @@
 *.pyc
 venv/
-modelos/
 .DS_Store
 __pycache__/

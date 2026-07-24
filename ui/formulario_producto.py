@@ -1,23 +1,35 @@
 import customtkinter as ctk
+
 from tema import *
+
+from modelos.producto import Producto
+from modelos.inventario import Inventario
 
 class FormularioProducto(ctk.CTkFrame):
     """Formulario para agregar productos."""
-
+    
     def __init__(self, master):
-        super().__init__(master,fg_color=COLOR_FONDO)
+        super().__init__(
+            master,
+            fg_color=COLOR_FONDO
+        )
+
+        self.inventario = Inventario()
+
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
+
         self.crear_componentes()
 
     def crear_componentes(self):
 
-        # Tarjeta centrada
+        # Tarjeta
 
         self.tarjeta = ctk.CTkFrame(
             self,
             fg_color=COLOR_PANEL,
-            corner_radius=15
+            corner_radius=15,
+            width=620
         )
 
         self.tarjeta.grid(
@@ -36,9 +48,7 @@ class FormularioProducto(ctk.CTkFrame):
             text_color=COLOR_TEXTO
         )
 
-        titulo.pack(
-            pady=(35, 30)
-        )
+        titulo.pack(pady=(35, 30))
 
         # Nombre
 
@@ -50,8 +60,9 @@ class FormularioProducto(ctk.CTkFrame):
 
         self.entry_nombre = ctk.CTkEntry(
             self.tarjeta,
-            width=450,
-            height=40
+            width=500,
+            height=40,
+            corner_radius=8
         )
 
         self.entry_nombre.pack(
@@ -69,8 +80,9 @@ class FormularioProducto(ctk.CTkFrame):
 
         self.entry_marca = ctk.CTkEntry(
             self.tarjeta,
-            width=450,
-            height=40
+            width=500,
+            height=40,
+            corner_radius=8
         )
 
         self.entry_marca.pack(
@@ -88,8 +100,9 @@ class FormularioProducto(ctk.CTkFrame):
 
         self.entry_sku = ctk.CTkEntry(
             self.tarjeta,
-            width=450,
-            height=40
+            width=500,
+            height=40,
+            corner_radius=8
         )
 
         self.entry_sku.pack(
@@ -107,8 +120,9 @@ class FormularioProducto(ctk.CTkFrame):
 
         self.entry_precio = ctk.CTkEntry(
             self.tarjeta,
-            width=450,
-            height=40
+            width=500,
+            height=40,
+            corner_radius=8
         )
 
         self.entry_precio.pack(
@@ -126,8 +140,9 @@ class FormularioProducto(ctk.CTkFrame):
 
         self.entry_cantidad = ctk.CTkEntry(
             self.tarjeta,
-            width=450,
-            height=40
+            width=500,
+            height=40,
+            corner_radius=8
         )
 
         self.entry_cantidad.pack(
@@ -140,15 +155,30 @@ class FormularioProducto(ctk.CTkFrame):
         self.boton_guardar = ctk.CTkButton(
             self.tarjeta,
             text="Guardar producto",
+            width=500,
             height=45,
-            width=450,
+            corner_radius=8,
             fg_color=COLOR_BOTON,
             hover_color=COLOR_BOTON_HOVER,
-            text_color="black",
-            corner_radius=8
+            text_color="white",
+            command=self.guardar_producto
         )
 
         self.boton_guardar.pack(
             padx=35,
             pady=(0, 35)
         )
+
+    def guardar_producto(self):
+        """Guarda un producto en el inventario."""
+
+        producto = Producto(
+            self.entry_nombre.get(),
+            self.entry_marca.get(),
+            self.entry_sku.get(),
+            self.entry_precio.get(),
+            self.entry_cantidad.get()
+        )
+
+        self.inventario.agregar_producto(producto)
+        print("Producto guardado correctamente")
