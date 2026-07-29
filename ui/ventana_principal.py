@@ -1,5 +1,6 @@
-import customtkinter as ctk
 from tema import *
+import customtkinter as ctk
+from ui.inventario_view import InventarioView
 from ui.formulario_producto import FormularioProducto
 
 class VentanaPrincipal:
@@ -37,6 +38,7 @@ class VentanaPrincipal:
         self.crear_sidebar()
         self.crear_area_principal()
         self.mostrar_formulario()
+        self.seleccionar_boton("Agregar producto")
 
     # SIDEBAR
 
@@ -105,11 +107,11 @@ class VentanaPrincipal:
             "➕",
             self.mostrar_formulario
         )
-
+        
         self.crear_boton(
             "Inventario",
             "📦",
-            None
+            self.mostrar_inventario
         )
 
         self.crear_boton(
@@ -175,7 +177,7 @@ class VentanaPrincipal:
         )
 
     # CAMBIO DE VISTAS
-
+    
     def limpiar_contenido(self):
         for widget in self.contenido.winfo_children():
             widget.destroy()
@@ -188,6 +190,20 @@ class VentanaPrincipal:
         )
 
         formulario.pack(
+            fill="both",
+            expand=True
+        )
+
+
+    def mostrar_inventario(self):
+        self.limpiar_contenido()
+
+        inventario = InventarioView(
+            self.contenido
+        )
+
+        inventario.pack(
+            fill="both",
             expand=True
         )
 
@@ -213,10 +229,6 @@ class VentanaPrincipal:
         )
         
         # INICIAR
-
+        
     def iniciar(self):
-        self.seleccionar_boton(
-            "Agregar producto"
-        )
-
         self.ventana.mainloop()

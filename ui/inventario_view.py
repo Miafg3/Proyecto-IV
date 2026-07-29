@@ -57,38 +57,116 @@ class InventarioView(ctk.CTkFrame):
             tarjeta = ctk.CTkFrame(
                 contenedor,
                 fg_color=COLOR_PANEL,
-                corner_radius=12
+                corner_radius=15
             )
 
             tarjeta.pack(
                 fill="x",
-                pady=10,
-                padx=10
+                padx=10,
+                pady=12
+            )
+
+            # TÍTULO
+
+            titulo = ctk.CTkLabel(
+                tarjeta,
+                text=f"📦 {producto.nombre}",
+                font=(FUENTE, 22, "bold"),
+                text_color=COLOR_TEXTO
+            )
+
+            titulo.pack(
+                anchor="w",
+                padx=20,
+                pady=(18, 8)
+            )
+
+            # SEPARADOR
+
+            separador = ctk.CTkFrame(
+                tarjeta,
+                height=2,
+                fg_color="#5F6B7A"
+            )
+
+            separador.pack(
+                fill="x",
+                padx=20,
+                pady=(0, 15)
+            )
+
+            # INFORMACIÓN
+
+            informacion = ctk.CTkFrame(
+                tarjeta,
+                fg_color="transparent"
+            )
+
+            informacion.pack(
+                fill="x",
+                padx=20
             )
 
             ctk.CTkLabel(
-                tarjeta,
-                text=producto.nombre,
-                font=(FUENTE, 20, "bold"),
-                text_color=COLOR_TEXTO
-            ).pack(anchor="w", padx=20, pady=(15, 5))
+                informacion,
+                text=f"Marca:      {producto.marca}",
+                font=(FUENTE, 15)
+            ).pack(anchor="w", pady=3)
 
             ctk.CTkLabel(
-                tarjeta,
-                text=f"Marca: {producto.marca}"
-            ).pack(anchor="w", padx=20)
+                informacion,
+                text=f"SKU:          {producto.sku}",
+                font=(FUENTE, 15)
+            ).pack(anchor="w", pady=3)
 
             ctk.CTkLabel(
-                tarjeta,
-                text=f"SKU: {producto.sku}"
-            ).pack(anchor="w", padx=20)
+                informacion,
+                text=f"Precio:      ${producto.precio}",
+                font=(FUENTE, 15)
+            ).pack(anchor="w", pady=3)
 
             ctk.CTkLabel(
-                tarjeta,
-                text=f"Precio: ${producto.precio}"
-            ).pack(anchor="w", padx=20)
+                informacion,
+                text=f"Cantidad:  {producto.cantidad}",
+                font=(FUENTE, 15)
+            ).pack(anchor="w", pady=3)
 
-            ctk.CTkLabel(
+            # BOTONES
+
+            botones = ctk.CTkFrame(
                 tarjeta,
-                text=f"Cantidad: {producto.cantidad}"
-            ).pack(anchor="w", padx=20, pady=(0, 15))
+                fg_color="transparent"
+            )
+
+            botones.pack(
+                fill="x",
+                padx=20,
+                pady=(18, 18)
+            )
+
+            editar = ctk.CTkButton(
+                botones,
+                text="✏ Editar",
+                width=110,
+                fg_color="#D4A017",
+                hover_color="#B8860B",
+                text_color="white"
+            )
+
+            editar.pack(
+                side="right",
+                padx=(10, 0)
+            )
+
+            eliminar = ctk.CTkButton(
+                botones,
+                text="🗑 Eliminar",
+                width=110,
+                fg_color="#B22222",
+                hover_color="#8B1A1A",
+                text_color="white"
+            )
+
+            eliminar.pack(
+                side="right"
+            )
