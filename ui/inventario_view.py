@@ -61,14 +61,14 @@ class InventarioView(ctk.CTkFrame):
             pady=(5, 10)
         )
 
-        contador = ctk.CTkLabel(
+        self.contador = ctk.CTkLabel(
             header,
             text=f"{len(self.productos)} producto(s) registrado(s)",
             font=(FUENTE, 15, "bold"),
             text_color=COLOR_BOTON
         )
 
-        contador.pack(
+        self.contenedor.pack(
             anchor="w"
         )
         
@@ -108,7 +108,8 @@ class InventarioView(ctk.CTkFrame):
             height=40,
             fg_color=COLOR_BOTON,
             hover_color=COLOR_BOTON_HOVER,
-            text_color="white"
+            text_color="white",
+            command=self.actualizar_inventario
         )
 
         actualizar.pack(
@@ -119,12 +120,12 @@ class InventarioView(ctk.CTkFrame):
 
     def crear_lista_productos(self):
 
-        contenedor = ctk.CTkScrollableFrame(
+        self.contenedor = ctk.CTkScrollableFrame(
             self,
             fg_color="transparent"
         )
 
-        contenedor.pack(
+        self.contenedor.pack(
             fill="both",
             expand=True,
             padx=40,
@@ -134,7 +135,7 @@ class InventarioView(ctk.CTkFrame):
         if not self.productos:
 
             mensaje = ctk.CTkLabel(
-                contenedor,
+                self.contenedor,
                 text="No hay productos registrados.",
                 font=(FUENTE, 18),
                 text_color=COLOR_TEXTO
@@ -149,9 +150,41 @@ class InventarioView(ctk.CTkFrame):
         for producto in self.productos:
 
             self.crear_tarjeta(
-                contenedor,
+                self.contenedor,
                 producto
             )
+            
+            
+    # ACTUALIZAR INVENTARIO
+
+    def actualizar_inventario(self):
+
+        self.inventario = Inventario()
+        self.productos = self.inventario.mostrar_productos()
+        
+        for widget in self.contenedor.winfo_children():
+            widget.destroy()
+
+        if not self.productos:
+            mensaje = ctk.CTkLabel(
+                self.contenedor,
+                text="No hay productos registrados.",
+                font=(FUENTE, 18),
+                text_color=COLOR_TEXTO
+            )
+
+            mensaje.pack(
+                pady=20
+            )
+
+            return
+
+        for producto in self.productos:
+
+            self.crear_tarjeta(
+                self.contenedor,
+                producto
+            )     
             
     # TARJETA DE PRODUCTO
 
