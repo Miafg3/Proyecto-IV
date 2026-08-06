@@ -68,7 +68,7 @@ class InventarioView(ctk.CTkFrame):
             text_color=COLOR_BOTON
         )
 
-        self.contenedor.pack(
+        self.contador.pack(
             anchor="w"
         )
         
@@ -86,19 +86,24 @@ class InventarioView(ctk.CTkFrame):
             padx=40,
             pady=(10, 20)
         )
-
-        buscar = ctk.CTkEntry(
+        
+        self.buscar = ctk.CTkEntry(
             acciones,
             placeholder_text="🔍 Buscar producto...",
             height=40,
             width=400
         )
 
-        buscar.pack(
+        self.buscar.pack(
             side="left",
             fill="x",
             expand=True,
             padx=(0, 10)
+        )
+
+        self.buscar.bind(
+            "<KeyRelease>",
+            self.buscar_producto
         )
 
         actualizar = ctk.CTkButton(
@@ -180,12 +185,32 @@ class InventarioView(ctk.CTkFrame):
             return
 
         for producto in self.productos:
-
             self.crear_tarjeta(
                 self.contenedor,
                 producto
-            )     
+            )  
+
+    # BUSCAR PRODUCTO
+
+    def buscar_producto(self, event=None):
+        texto = self.buscar.get().lower()
+                
+        for widget in self.contenedor.winfo_children():
+            widget.destroy()
             
+        for producto in self.productos:
+            
+            if (
+                texto in producto.nombre.lower()
+                or texto in producto.marca.lower()
+                or texto in producto.sku.lower()
+            ):
+
+                self.crear_tarjeta(
+                    self.contenedor,
+                    producto
+                )
+                    
     # TARJETA DE PRODUCTO
 
     def crear_tarjeta(self, contenedor, producto):
